@@ -11,7 +11,7 @@ pipeline {
                     sh 'docker pull hadolint/hadolint'
                     // Construir la imagen Docker
                     sh 'ls -l && pwd'
-                    sh 'docker build -f /var/lib/jenkins/workspace/deploymentdocker-mimi-des13/nginx -t nginx .'
+                    sh 'docker build -f /var/lib/jenkins/workspace/deploymentdocker-mimi-des13/nginx -t nginx_des13 .'
                     //Chequear la imagen creada
                     sh 'docker images'
                     // Chequear con Hadolint
@@ -35,9 +35,9 @@ pipeline {
             steps {
                 script {
                     // Iniciar sesión en DockerHub
-                    sh 'docker login -u $user -p $pass'
+                    sh 'docker login -u romitelli -p MsRr.21119723'
                     // Etiquetar la imagen
-                    sh 'docker tag nginx $user/nginxdesafio13'
+                    sh 'docker tag nginx_des13 romitelli/nginxdesafio13'
                     // Subir la imagen a DockerHub
                     sh ' docker push $user/nginxdesafio13'
                 }
