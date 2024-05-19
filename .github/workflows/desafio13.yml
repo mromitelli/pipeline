@@ -1,0 +1,47 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+    - name: Chequear en que directorio estamos
+      run: pwd && ls -l
+      
+    - name: Build Docker image
+      run: docker  build  -f /home/runner/work/pipeline/pipeline/nginx -t mimi13nginx .
+
+    - name: sleep
+      run: sleep 10
+      
+    - name: Chequear creacion de la imagen
+      run: docker images
+
+    - name: Chequear creacion de la imagen con Hadolint
+      run: docker pull hadolint/hadolint && docker run --rm -i hadolint/hadolint < /home/runner/work/pipeline/pipeline/nginx
+      
+    - name: Tag Docker image 
+      run: docker tag mimi13nginx ${{ secrets.DOCKERHUB_TOKEN }}/mimi13nginx:latest
+     
+    - name: Push Docker image to DockerHub
+      run: docker push ${{ secrets.DOCKERHUB_TOKEN }}/mimi13nginx:latest
+
+    - name: Run Docker container
+      run: docker run -d --name my_container ${{ secrets.DOCKERHUB_TOKEN }}/mimi13nginx:latest
+
+    - name: Chequear el container
+      run: docker ps
