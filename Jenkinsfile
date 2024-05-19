@@ -11,11 +11,11 @@ pipeline {
                     sh 'docker pull hadolint/hadolint'
                     // Construir la imagen Docker
                     sh 'ls -l && pwd'
-                    sh 'docker build -f /var/lib/jenkins/workspace/test/nginx -t nginx .'
+                    sh 'docker build -f /var/lib/jenkins/workspace/deploymentdocker-mimi-des13/nginx -t nginx .'
                     //Chequear la imagen creada
                     sh 'docker images'
                     // Chequear con Hadolint
-                    sh 'docker run --rm -i hadolint/hadolint < /var/lib/jenkins/workspace/test/nginx' 
+                    sh 'docker run --rm -i hadolint/hadolint < /var/lib/jenkins/workspace/deploymentdocker-mimi-des13/nginx' 
                 }
             }
         }
