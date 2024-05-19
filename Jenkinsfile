@@ -39,7 +39,7 @@ pipeline {
                     // Etiquetar la imagen
                     sh 'docker tag nginx_des13 romitelli/nginxdesafio13'
                     // Subir la imagen a DockerHub
-                    sh ' docker push $user/nginxdesafio13'
+                    sh ' docker push romitelli/nginxdesafio13'
                 }
             }
         }
