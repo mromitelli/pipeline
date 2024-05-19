@@ -35,11 +35,11 @@ pipeline {
             steps {
                 script {
                     // Iniciar sesión en DockerHub
-                    sh 'docker login -u romitelli -p MsRr.21119723'
+                    sh 'docker login -u $user -p $pass'
                     // Etiquetar la imagen
-                    sh 'docker tag nginx_des13 romitelli/nginxdesafio13'
+                    sh 'docker tag nginx_des13 $user/nginxdesafio13'
                     // Subir la imagen a DockerHub
-                    sh ' docker push romitelli/nginxdesafio13'
+                    sh ' docker push $user/nginxdesafio13'
                 }
             }
         }
