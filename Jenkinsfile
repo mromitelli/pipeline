@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     // Levantar el contenedor
-                    sh 'docker run -d --name my-app-container nginx'
+                    sh 'docker run -d --name my-app-container nginx_des13'
                     //chequear que el contenedor este corriendo
                     sh'docker  ps'
                     // Para Testear el correcto funcionamiento
